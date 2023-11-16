@@ -17,10 +17,7 @@ O que você precisa para instalar o software e como instalá-lo:
 
 1.Clone o repositório
 git clone https://github.com/guilhermeFrBarros/API_treinamentoMongo.git
- Entre no diretório do seu projeto:
-    ```
-    cd seuprojeto
-    ```
+
 
 2. Instale as dependências:
     ```
