@@ -1,12 +1,15 @@
 const HomeModel = require("../models/HomeModel");
 
-HomeModel.create({
-  titulo: "um titulo de teste",
-  descricao: "Uma descriçaõ de teste"
-})
-  .then( dados => console.log( dados ))
-  .catch( e => console.log( e ));
+// HomeModel.create({
+//   titulo: "um titulo de teste",
+//   descricao: "Uma descriçaõ de teste"
+// })
+//   .then( dados => console.log( dados ))
+//   .catch( e => console.log( e ));
 
+HomeModel.find()
+    .then( dados => console.log( dados ))
+    .catch( e => console.log( e ));
 //get /
 exports.paginaInicial = (req, res) => {
   res.render('index');
