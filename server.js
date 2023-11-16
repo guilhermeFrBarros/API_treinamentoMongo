@@ -1,25 +1,35 @@
 const { app, express, mongoose } = require("./src/conection/conectionBD");
 
+const dotenv = require("dotenv");
+dotenv.config();
 
-
-
-// mongoose.connect(process.env.CONECTIONSTRING )  // não precisso mais disso apos a versão 4.00: depois da CONECTIONSTRING { useNewUrlParser: true, useUnifiedTopology: true}
-//             .then( ()=> {
-//               console.log( "Conecteção do banco estabelecida" )
-//               app.emit("pronto");
-//             } )
-//             .catch( (err)=> { 
-//               console.log(err);
-//               if(err) throw err;
-//             }); 
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const flash = require("connect-flash");
 
 const routes = require('./routes');
 const path = require('path');
 const { middleware } = require("./src/middlewares/middleware");
 
+
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.resolve(__dirname, 'public')));
+
+// config session
+const sessionOptions = session({
+  secret: "123aadafaf82htrjhjyjt65921kHJG",
+  store:   MongoStore.create({ mongoUrl: process.env.CONECTIONSTRING }),
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    httpOnly: true
+  }
+})
+
+app.use(sessionOptions);
+app.use(flash());
 
 app.set('views', path.resolve(__dirname, 'src', 'views'));
 app.set('view engine', 'ejs');
@@ -34,5 +44,4 @@ app.on("pronto", ()=> {
     console.log('Acessar http://localhost:3000');
     console.log('Servidor executando na porta 3000');
   });
-} );
-
+});

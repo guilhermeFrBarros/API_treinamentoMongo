@@ -1,17 +1,12 @@
 const HomeModel = require("../models/HomeModel");
 
-// HomeModel.create({
-//   titulo: "um titulo de teste",
-//   descricao: "Uma descriçaõ de teste"
-// })
-//   .then( dados => console.log( dados ))
-//   .catch( e => console.log( e ));
-
-HomeModel.find()
-    .then( dados => console.log( dados ))
-    .catch( e => console.log( e ));
 //get /
 exports.paginaInicial = (req, res) => {
+  //  req.flash("info", "ola mundo");
+  //  req.flash("secess", "sucesso no carregamento"); 
+  console.log(req.flash("info"), req.flash("secess"));
+  req.session.userari = { teste: "teste2", logado: true, card: false };
+  console.log(req.session.user);
   res.render('index');
   return
 };
@@ -26,7 +21,7 @@ exports.trataPost = (req, res, next) => {
 
 // formato objeto
 /*
-class HomeController { 
+class HomeController { 8  11
 
   constructor(){
   }
