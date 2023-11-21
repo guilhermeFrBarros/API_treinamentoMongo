@@ -11,7 +11,7 @@ exports.paginaInicial = (req, res) => {
 
 // post /
 exports.trataPost = (req, res, next) => {
-  res.send('Ei, sou sua nova rota de POST. => ' +req.body.Cliente);
+  res.send('Ei, sou sua nova rota de POST. => ' +req.csrfToken());
   return
 };
 

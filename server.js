@@ -9,11 +9,13 @@ const flash = require("connect-flash");
 
 const routes = require('./routes');
 const path = require('path');
-const { middleware } = require("./src/middlewares/middleware");
+const { middleware, checkCsrfError, csrfMiddleware } = require("./src/middlewares/middleware");
+const helmet = require("helmet");
+const csrf = require("csurf");
 
 
 app.use(express.urlencoded({ extended: true }));
-
+app.use( express.json());
 app.use(express.static(path.resolve(__dirname, 'public')));
 
 // config session
@@ -34,8 +36,14 @@ app.use(flash());
 app.set('views', path.resolve(__dirname, 'src', 'views'));
 app.set('view engine', 'ejs');
 
+app.use(helmet());
+app.use(csrf());
+
+
 // minhas middlewares
 app.use( middleware );
+app.use(checkCsrfError);
+app.use(csrfMiddleware);
 app.use(routes);
 
 
